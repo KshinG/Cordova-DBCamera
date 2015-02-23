@@ -25,6 +25,7 @@
       </feature>
     </config-file>
     <source-file src='src/ios/CDVdbcamera.m'/>
+    <source-file src='src/ios/CustomCamera.m'/>
     <framework src='Foundation.framework' autogen='true'/>
     <framework src='AVFoundation.framework' autogen='true'/>
     <framework src='CoreMedia.framework' autogen='true'/>
@@ -32,6 +33,7 @@
     <header-file src='src/ios/vendor/headers/DBCameraViewController.h' autogen='true'/>
     <header-file src='src/ios/vendor/headers/DBCameraDelegate.h' autogen='true'/>
     <header-file src='src/ios/vendor/headers/DBCameraView.h' autogen='true'/>
+    <header-file src='src/ios/vendor/headers/CustomCamera.h' autogen='true'/>
     <resource-file src='src/ios/vendor/resources/DBCameraImages.xcassets' autogen='true'/>
     <resource-file src='src/ios/vendor/resources/en.lproj/DBCamera.strings' autogen='true'/>
     <source-file framework='true' src='src/ios/vendor/libdbcamera.a' autogen='true'/>

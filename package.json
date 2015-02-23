@@ -1,0 +1,15 @@
+{
+    "version": "0.0.3",
+    "name": "com.vulume.cordova.dbcamera",
+    "cordova_name": "\n     dbcamera\n  ",
+    "description": "\n     Plugman compatible wrapper for DBCamera.\n  ",
+    "license": "\n     MIT\n  ",
+    "keywords": [
+        "\n     camera",
+        " ios\n  "
+    ],
+    "platforms": [
+        "ios"
+    ],
+    "engines": []
+}

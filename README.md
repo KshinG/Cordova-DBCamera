@@ -11,6 +11,9 @@ Install Instructions
 
 Usage
 -------
+ The Custom Camera Method has been implemented. It shows a caption that rotates with the device orientation
+
+ * Open camera with caption - `cordova.plugins.dbcamera.openCustomCamera(onPhotoURISuccess, onFail, "This is a caption");`
 
  The following methods are implemented (See https://github.com/danielebogo/DBCamera for more)
 

@@ -6,7 +6,7 @@
 #import "DBCameraView.h"
 
 // Uncomment custom camera related to start implementing your own
-//#import "CustomCamera.h"
+#import "CustomCamera.h"
 
 #define CDV_DBCAMERA_PHOTO_PREFIX @"cdv_dbcamera_photo_"
 
@@ -16,7 +16,7 @@
 
 - (void)openCamera:(CDVInvokedUrlCommand*)command;
 - (void)openCameraWithSettings:(CDVInvokedUrlCommand*)command;
-//- (void)openCustomCamera:(CDVInvokedUrlCommand*)command;
+- (void)openCustomCamera:(CDVInvokedUrlCommand*)command;
 - (void)openCameraWithoutSegue:(CDVInvokedUrlCommand*)command;
 - (void)openCameraWithoutContainer:(CDVInvokedUrlCommand*)command;
 - (void)cleanup:(CDVInvokedUrlCommand*)command;
@@ -47,16 +47,26 @@
     [self.viewController presentViewController:nav animated:YES completion:nil];
 }
 
-//- (void)openCustomCamera:(CDVInvokedUrlCommand*)command
-//{
-//    self.callbackId = command.callbackId;
-//    CustomCamera *camera = [CustomCamera initWithFrame:[[UIScreen mainScreen] bounds]];
-//    [camera buildInterface];
-//
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[DBCameraViewController alloc] initWithDelegate:self cameraView:camera]];
-//    [nav setNavigationBarHidden:YES];
-//    [self.viewController presentViewController:nav animated:YES completion:nil];
-//}
+- (void)openCustomCamera:(CDVInvokedUrlCommand*)command
+{
+    self.callbackId = command.callbackId;
+
+    CustomCamera *camera = [CustomCamera initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    camera.sceneText.text = [[command argumentAtIndex:0 withDefault:@"No Text"] uppercaseString];
+        [camera buildInterface];
+    self.callbackId = command.callbackId;
+    DBCameraContainerViewController *container = [[DBCameraContainerViewController alloc] initWithDelegate:self];
+    DBCameraViewController *cameraController = [DBCameraViewController initWithDelegate:self];
+
+    [container setCameraViewController:cameraController];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[cameraController initWithDelegate:self cameraView:camera]];
+    [cameraController setUseCameraSegue:NO];
+    nav.delegate = self;
+
+    [nav setNavigationBarHidden:YES];
+    [self.viewController presentViewController:nav animated:YES completion:nil];
+}
 
 - (void)openCameraWithoutSegue:(CDVInvokedUrlCommand*)command
 {
@@ -116,6 +126,24 @@
 }
 
 #pragma mark - DBCameraViewControllerDelegate
+
+
++(UIImage*) drawText:(NSString*) text
+             inImage:(UIImage*)  image
+             atPoint:(CGPoint)   point
+{
+
+   UIFont *font = [UIFont boldSystemFontOfSize:64];
+    UIGraphicsBeginImageContext(image.size);
+    [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
+    CGRect rect = CGRectMake(point.x, point.y, image.size.width, image.size.height);
+    [[UIColor whiteColor] set];
+    [text drawInRect:CGRectIntegral(rect) withFont:font];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return newImage;
+}
 
 - (void) captureImageDidFinish:(UIImage *)image withMetadata:(NSDictionary *)metadata
 {
