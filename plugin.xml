@@ -36,8 +36,10 @@
     <header-file src='src/ios/vendor/headers/CustomCamera.h' autogen='true'/>
     <header-file src='src/ios/vendor/headers/DBCameraMacros.h' autogen='true'/>
     <header-file src='src/ios/vendor/headers/UIImage+TintColor.h' autogen='true'/>
+        <header-file src='src/ios/vendor/headers/UIImage+CropScaleOrientation.h' autogen='true'/>
     <resource-file src='src/ios/vendor/resources/DBCameraImages.xcassets' autogen='true'/>
     <resource-file src='src/ios/vendor/resources/en.lproj/DBCamera.strings' autogen='true'/>
     <source-file framework='true' src='src/ios/vendor/libdbcamera.a' autogen='true'/>
+    <source-file framework='true' src='src/ios/vendor/UIImage+CropScaleOrientation.m' autogen='true'/>
   </platform>
 </plugin>

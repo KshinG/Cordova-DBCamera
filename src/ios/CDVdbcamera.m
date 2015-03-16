@@ -4,6 +4,7 @@
 #import "DBCameraViewController.h"
 #import "DBCameraContainerViewController.h"
 #import "DBCameraView.h"
+#import "UIImage+CropScaleOrientation.h"
 
 // Uncomment custom camera related to start implementing your own
 #import "CustomCamera.h"
@@ -127,26 +128,32 @@
 
 #pragma mark - DBCameraViewControllerDelegate
 
-
-+(UIImage*) drawText:(NSString*) text
-             inImage:(UIImage*)  image
-             atPoint:(CGPoint)   point
-{
-
-   UIFont *font = [UIFont boldSystemFontOfSize:64];
-    UIGraphicsBeginImageContext(image.size);
-    [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
-    CGRect rect = CGRectMake(point.x, point.y, image.size.width, image.size.height);
-    [[UIColor whiteColor] set];
-    [text drawInRect:CGRectIntegral(rect) withFont:font];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return newImage;
-}
-
 - (void) captureImageDidFinish:(UIImage *)image withMetadata:(NSDictionary *)metadata
 {
+
+    image = [image imageCorrectedForCaptureOrientation];
+    CGSize targetSize;
+    NSString* orient;
+
+    if (image.size.width >= image.size.height){
+        orient = @"landscape";
+    }
+    else{
+        orient = @"portrait";
+    }
+
+    if (MAX(image.size.width, image.size.height) > 398){
+        if ([orient  isEqual: @"landscape"]){
+            targetSize.width = 396;
+            targetSize.height = image.size.height * (396/image.size.width);
+        } else {
+            targetSize.height = 396;
+            targetSize.width = image.size.width * (396/image.size.height);
+        }
+    }
+
+    image = [image imageByScalingNotCroppingForSize:targetSize];
+
     NSData* data = UIImageJPEGRepresentation(image, 1.0);
     NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];
     NSError* err = nil;
