@@ -21,9 +21,12 @@ exports.openCustomCamera = function(success, error, options) {
      success = success || _logMessage;
      error = error || _logMessage;
      options = options || {};
-     options = "You've got crabs, assface!"
-     exec(success, error, "DBCamera", "openCustomCamera", [options]);
-    //return console.log("You have not implemented a custom camera.");
+     var getValue = argscheck.getValue;
+     var sceneText = getValue(options.sceneText, "No Text");
+     var targetWidth = getValue(options.targetWidth, -1);
+     var targetHeight = getValue(options.targetHeight, -1);
+     var args = [sceneText,targetWidth,targetHeight];
+     exec(success, error, "DBCamera", "openCustomCamera", args);
 };
 
 exports.openCameraWithoutSegue = function(success, error) {
