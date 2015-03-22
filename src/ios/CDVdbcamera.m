@@ -131,7 +131,6 @@
 - (void) captureImageDidFinish:(UIImage *)image withMetadata:(NSDictionary *)metadata
 {
 
-    image = [image imageCorrectedForCaptureOrientation];
     CGSize targetSize;
     NSString* orient;
 
@@ -151,10 +150,11 @@
             targetSize.width = image.size.width * (396/image.size.height);
         }
     }
+    UIImage* scaledImage = nil;
 
-    image = [image imageByScalingNotCroppingForSize:targetSize];
+    scaledImage = [image imageByScalingNotCroppingForSize:targetSize];
 
-    NSData* data = UIImageJPEGRepresentation(image, 1.0);
+    NSData* data = UIImageJPEGRepresentation(scaledImage, 1.0);
     NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];
     NSError* err = nil;
     NSFileManager* fileMgr = [[NSFileManager alloc] init];
