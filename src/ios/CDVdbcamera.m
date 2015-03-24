@@ -21,6 +21,7 @@
 - (void)openCameraWithoutSegue:(CDVInvokedUrlCommand*)command;
 - (void)openCameraWithoutContainer:(CDVInvokedUrlCommand*)command;
 - (void)cleanup:(CDVInvokedUrlCommand*)command;
+- (NSURL*) urlTransformer:(NSURL*)url;
 @end
 
 @implementation CDVdbcamera
@@ -128,6 +129,25 @@
 
 #pragma mark - DBCameraViewControllerDelegate
 
+
+- (NSURL*) urlTransformer:(NSURL*)url
+{
+    NSURL* urlToTransform = url;
+
+    // for backwards compatibility - we check if this property is there
+    SEL sel = NSSelectorFromString(@"urlTransformer");
+    if ([self.commandDelegate respondsToSelector:sel]) {
+        // grab the block from the commandDelegate
+        NSURL* (^urlTransformer)(NSURL*) = ((id(*)(id, SEL))objc_msgSend)(self.commandDelegate, sel);
+        // if block is not null, we call it
+        if (urlTransformer) {
+            urlToTransform = urlTransformer(url);
+        }
+    }
+
+    return urlToTransform;
+}
+
 - (void) captureImageDidFinish:(UIImage *)image withMetadata:(NSDictionary *)metadata
 {
 
@@ -150,11 +170,11 @@
             targetSize.width = image.size.width * (396/image.size.height);
         }
     }
-    UIImage* scaledImage = nil;
+    //UIImage* scaledImage = nil;
 
-    scaledImage = [image imageByScalingNotCroppingForSize:targetSize];
+    //scaledImage = [image imageByScalingNotCroppingForSize:targetSize];
 
-    NSData* data = UIImageJPEGRepresentation(scaledImage, 1.0);
+    NSData* data = UIImagePNGRepresentation(image);
     NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];
     NSError* err = nil;
     NSFileManager* fileMgr = [[NSFileManager alloc] init];
@@ -162,7 +182,7 @@
 
     int i = 1;
     do {
-        filePath = [NSString stringWithFormat:@"%@/%@%03d.%@", docsPath, CDV_DBCAMERA_PHOTO_PREFIX, i++, @"jpg"];
+        filePath = [NSString stringWithFormat:@"%@/%@%03d.%@", docsPath, CDV_DBCAMERA_PHOTO_PREFIX, i++, @"png"];
     } while ([fileMgr fileExistsAtPath:filePath]);
 
     CDVPluginResult* pluginResult = nil;
@@ -170,9 +190,12 @@
     if (![data writeToFile:filePath options:NSAtomicWrite error:&err]) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION messageAsString:[err localizedDescription]];
     } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[[self urlTransformer:[NSURL fileURLWithPath:filePath]] absoluteString]];
+        /*
         NSMutableDictionary* resultDictionary = [[NSMutableDictionary alloc] init];
         [resultDictionary setValue:[[NSURL fileURLWithPath:filePath] absoluteString] forKey:@"imageURL"];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDictionary];
+         */
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
