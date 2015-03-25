@@ -170,6 +170,8 @@
             targetSize.width = image.size.width * (396/image.size.height);
         }
     }
+
+    image = [image imageCorrectedForCaptureOrientation];
     //UIImage* scaledImage = nil;
 
     //scaledImage = [image imageByScalingNotCroppingForSize:targetSize];
