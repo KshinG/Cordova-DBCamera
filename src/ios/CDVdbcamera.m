@@ -5,6 +5,7 @@
 #import "DBCameraContainerViewController.h"
 #import "DBCameraView.h"
 #import "UIImage+CropScaleOrientation.h"
+#import "UIImage+fixOrientation.m"
 
 // Uncomment custom camera related to start implementing your own
 #import "CustomCamera.h"
@@ -171,10 +172,7 @@
         }
     }
 
-    image = [image imageCorrectedForCaptureOrientation];
-    //UIImage* scaledImage = nil;
-
-    //scaledImage = [image imageByScalingNotCroppingForSize:targetSize];
+    image = [image fixOrientation];
 
     NSData* data = UIImagePNGRepresentation(image);
     NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];
@@ -193,11 +191,6 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION messageAsString:[err localizedDescription]];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[[self urlTransformer:[NSURL fileURLWithPath:filePath]] absoluteString]];
-        /*
-        NSMutableDictionary* resultDictionary = [[NSMutableDictionary alloc] init];
-        [resultDictionary setValue:[[NSURL fileURLWithPath:filePath] absoluteString] forKey:@"imageURL"];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDictionary];
-         */
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
