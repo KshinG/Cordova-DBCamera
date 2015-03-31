@@ -173,8 +173,10 @@
     }
 
     image = [image fixOrientation];
+    UIImage* scaledImage = nil;
+    scaledImage = [image imageByScalingNotCroppingForSize:targetSize];
 
-    NSData* data = UIImagePNGRepresentation(image);
+    NSData* data = UIImagePNGRepresentation(scaledImage);
     NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];
     NSError* err = nil;
     NSFileManager* fileMgr = [[NSFileManager alloc] init];
