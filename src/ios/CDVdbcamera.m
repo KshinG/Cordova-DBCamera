@@ -152,31 +152,10 @@
 - (void) captureImageDidFinish:(UIImage *)image withMetadata:(NSDictionary *)metadata
 {
 
-    CGSize targetSize;
-    NSString* orient;
-
-    if (image.size.width >= image.size.height){
-        orient = @"landscape";
-    }
-    else{
-        orient = @"portrait";
-    }
-
-    if (MAX(image.size.width, image.size.height) > 398){
-        if ([orient  isEqual: @"landscape"]){
-            targetSize.width = 396;
-            targetSize.height = image.size.height * (396/image.size.width);
-        } else {
-            targetSize.height = 396;
-            targetSize.width = image.size.width * (396/image.size.height);
-        }
-    }
 
     image = [image fixOrientation];
-    UIImage* scaledImage = nil;
-    scaledImage = [image imageByScalingNotCroppingForSize:targetSize];
 
-    NSData* data = UIImagePNGRepresentation(scaledImage);
+    NSData* data = UIImagePNGRepresentation(image);
     NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];
     NSError* err = nil;
     NSFileManager* fileMgr = [[NSFileManager alloc] init];
