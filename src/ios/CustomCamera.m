@@ -25,26 +25,33 @@
     //Obtain current device orientation
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     CGFloat newY = CGRectGetMaxY(previewFrame);
+    CGFloat newX = CGRectGetMaxX(previewFrame);
+    CGRect lblFrame;
+    CGFloat portraitlabelWidth = newX * 0.8;
+    CGFloat portraitlabelHeight = newY * 0.2;
+    CGFloat landscapelabelWidth = newY * 0.8;
+    CGFloat landscapelabelHeight = newX * 0.2;
     if (orientation == UIInterfaceOrientationPortrait) {
         //[self.sceneText setText:@"Portrait"];
+        lblFrame = CGRectMake(newX/2-portraitlabelWidth/2, newY-portraitlabelHeight, portraitlabelWidth, portraitlabelHeight);
 
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(0) );
-        self.sceneText.center = CGPointMake(previewFrame.size.width/2, newY-40);
-
+        self.sceneText.frame = lblFrame;
     } else if ( orientation == UIInterfaceOrientationLandscapeLeft){
         //[self.sceneText setText:@"Landscape Left"];
-
+        lblFrame = CGRectMake(newX-landscapelabelHeight, newY/2-landscapelabelWidth*0.425, landscapelabelHeight, landscapelabelWidth);
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(-90) );
-        self.sceneText.center = CGPointMake(previewFrame.size.width-40, previewFrame.size.height/2+60);
+        self.sceneText.frame = lblFrame;
     }  else if (orientation == UIInterfaceOrientationLandscapeRight){
        // [self.sceneText setText:@"Landscape Right"];
-
+        lblFrame = CGRectMake(0, newY/2-landscapelabelWidth*0.425, landscapelabelHeight, landscapelabelWidth);
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90) );
-        self.sceneText.center = CGPointMake(40, previewFrame.size.height/2+60);
+        self.sceneText.frame = lblFrame;
     }else if (orientation == UIInterfaceOrientationPortraitUpsideDown){
+        lblFrame = CGRectMake(newX/2-portraitlabelWidth/2, 65, portraitlabelWidth, portraitlabelHeight);
        // [self.sceneText setText:@"Upside Down"];
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(180) );
-        self.sceneText.center = CGPointMake(previewFrame.size.width/2, 100);
+       self.sceneText.frame = lblFrame;
     }
 
 
