@@ -35,12 +35,12 @@
         //[self.sceneText setText:@"Landscape Left"];
 
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(-90) );
-        self.sceneText.center = CGPointMake(previewFrame.size.width-40, previewFrame.size.height/2+80);
+        self.sceneText.center = CGPointMake(previewFrame.size.width-40, previewFrame.size.height/2+60);
     }  else if (orientation == UIInterfaceOrientationLandscapeRight){
        // [self.sceneText setText:@"Landscape Right"];
 
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90) );
-        self.sceneText.center = CGPointMake(40, previewFrame.size.height/2+80);
+        self.sceneText.center = CGPointMake(40, previewFrame.size.height/2+60);
     }else if (orientation == UIInterfaceOrientationPortraitUpsideDown){
        // [self.sceneText setText:@"Upside Down"];
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(180) );
@@ -98,13 +98,22 @@
 {
     if( !_sceneText) {
         CGFloat newY = CGRectGetMaxY(previewFrame);
-        _sceneText = [[UILabel alloc] initWithFrame:CGRectMake(previewFrame.size.width/2-100, newY-80, 200, 80)];
+        CGFloat newX = CGRectGetMaxX(previewFrame);
+
+        CGFloat labelWidth = newX * 0.8;
+        CGFloat labelHeight = newY * 0.2;
+
+
+
+        _sceneText = [[UILabel alloc] initWithFrame:CGRectMake(newX/2-labelWidth/2, newY-labelHeight, labelWidth, labelHeight)];
+
+        CGFloat pointSize =  15 * (newX/320);
         _sceneText.textAlignment= NSTextAlignmentCenter;
         _sceneText.numberOfLines = 0;
         [_sceneText setBackgroundColor:[UIColor clearColor]];
         [_sceneText setTextColor: [UIColor whiteColor]];
         [_sceneText setShadowColor:[UIColor blackColor]];
-        [_sceneText setFont: [UIFont fontWithName:@"Verdana-Bold" size:15.0]];
+        [_sceneText setFont: [UIFont fontWithName:@"Verdana-Bold" size:pointSize]];
 
         }
     return _sceneText;
