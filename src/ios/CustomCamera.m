@@ -11,8 +11,7 @@
 
 @interface CustomCamera () <DBCameraViewControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) CALayer *focusBox, *exposeBox;
-@property (nonatomic, strong) UIView *bottomContainerBar, *topContainerBar;
-@end
+@property (nonatomic, strong) UIView *bottomContainerBar, *topContainerBar;@end
 
 @implementation CustomCamera
 
@@ -54,9 +53,8 @@
        self.sceneText.frame = lblFrame;
     }
 
-
-    //Do my thing
 }
+
 
 - (void) buildInterface
 {
@@ -77,7 +75,14 @@
 
     [self.bottomContainerBar addSubview:self.triggerButton];
     [self.bottomContainerBar addSubview:self.closeButton];
+
+
+
 }
+
+
+
+
 
 #pragma mark - Containers
 

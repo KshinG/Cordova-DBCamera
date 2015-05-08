@@ -57,18 +57,26 @@
     CustomCamera *camera = [CustomCamera initWithFrame:[[UIScreen mainScreen] bounds]];
 
     camera.sceneText.text = [[command argumentAtIndex:0 withDefault:@"No Text"] uppercaseString];
-        [camera buildInterface];
+    [camera buildInterface];
+    BOOL cameraDirection = [[command argumentAtIndex:3 withDefault:@(NO)] boolValue];
+
     self.callbackId = command.callbackId;
-    DBCameraContainerViewController *container = [[DBCameraContainerViewController alloc] initWithDelegate:self];
+
     DBCameraViewController *cameraController = [DBCameraViewController initWithDelegate:self];
 
-    [container setCameraViewController:cameraController];
+
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[cameraController initWithDelegate:self cameraView:camera]];
     [cameraController setUseCameraSegue:NO];
+
     nav.delegate = self;
 
     [nav setNavigationBarHidden:YES];
-    [self.viewController presentViewController:nav animated:YES completion:nil];
+    [self.viewController presentViewController:nav animated:YES completion:^(){
+        if (cameraDirection == true){
+          [camera.delegate switchCamera];
+        }
+    }];
+
 }
 
 - (void)openCameraWithoutSegue:(CDVInvokedUrlCommand*)command
@@ -152,8 +160,29 @@
 - (void) captureImageDidFinish:(UIImage *)image withMetadata:(NSDictionary *)metadata
 {
 
+    CGSize targetSize;
+    NSString* orient;
+
+    if (image.size.width >= image.size.height){
+        orient = @"landscape";
+    }
+    else{
+        orient = @"portrait";
+    }
+
+    if (MAX(image.size.width, image.size.height) > 398){
+        if ([orient  isEqual: @"landscape"]){
+            targetSize.width = 396;
+            targetSize.height = image.size.height * (396/image.size.width);
+        } else {
+            targetSize.height = 396;
+            targetSize.width = image.size.width * (396/image.size.height);
+        }
+    }
 
     image = [image fixOrientation];
+   // UIImage* scaledImage = nil;
+   // scaledImage = [image imageByScalingNotCroppingForSize:targetSize];
 
     NSData* data = UIImagePNGRepresentation(image);
     NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];

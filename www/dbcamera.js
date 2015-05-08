@@ -25,7 +25,8 @@ exports.openCustomCamera = function(success, error, options) {
      var sceneText = getValue(options.sceneText, "No Text");
      var targetWidth = getValue(options.targetWidth, -1);
      var targetHeight = getValue(options.targetHeight, -1);
-     var args = [sceneText,targetWidth,targetHeight];
+     var frontCamera  = getValue(options.frontCamera, false)
+     var args = [sceneText,targetWidth,targetHeight,frontCamera];
      exec(success, error, "DBCamera", "openCustomCamera", args);
 };
 
