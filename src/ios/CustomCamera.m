@@ -119,7 +119,7 @@
 
         _sceneText = [[UILabel alloc] initWithFrame:CGRectMake(newX/2-labelWidth/2, newY-labelHeight, labelWidth, labelHeight)];
 
-        CGFloat pointSize =  15 * (newX/320);
+        CGFloat pointSize =  17 * (newX/320);
         _sceneText.textAlignment= NSTextAlignmentCenter;
         _sceneText.numberOfLines = 0;
         [_sceneText setBackgroundColor:[UIColor clearColor]];
