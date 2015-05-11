@@ -27,9 +27,9 @@
     CGFloat newX = CGRectGetMaxX(previewFrame);
     CGRect lblFrame;
     CGFloat portraitlabelWidth = newX * 0.8;
-    CGFloat portraitlabelHeight = newY * 0.2;
+    CGFloat portraitlabelHeight = newY * 0.1;
     CGFloat landscapelabelWidth = newY * 0.8;
-    CGFloat landscapelabelHeight = newX * 0.2;
+    CGFloat landscapelabelHeight = newX * 0.1;
     if (orientation == UIInterfaceOrientationPortrait) {
         //[self.sceneText setText:@"Portrait"];
         lblFrame = CGRectMake(newX/2-portraitlabelWidth/2, newY-portraitlabelHeight, portraitlabelWidth, portraitlabelHeight);
@@ -113,13 +113,13 @@
         CGFloat newX = CGRectGetMaxX(previewFrame);
 
         CGFloat labelWidth = newX * 0.8;
-        CGFloat labelHeight = newY * 0.2;
+        CGFloat labelHeight = newY * 0.1;
 
 
 
         _sceneText = [[UILabel alloc] initWithFrame:CGRectMake(newX/2-labelWidth/2, newY-labelHeight, labelWidth, labelHeight)];
 
-        CGFloat pointSize =  15 * (newX/320);
+        CGFloat pointSize =  17 * (newX/320);
         _sceneText.textAlignment= NSTextAlignmentCenter;
         _sceneText.numberOfLines = 0;
         [_sceneText setBackgroundColor:[UIColor clearColor]];
