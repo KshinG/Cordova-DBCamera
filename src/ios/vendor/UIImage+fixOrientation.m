@@ -19,13 +19,13 @@
         orient = @"portrait";
     }
 
-    if (MAX(self.size.width, self.size.height) > 398){
+    if (MAX(self.size.width, self.size.height) > 488){
         if ([orient  isEqual: @"landscape"]){
-            width = 396;
-            height = self.size.height * (396/self.size.width);
+            width = 487;
+            height = self.size.height * (487/self.size.width);
         } else {
-            height = 396;
-            width = self.size.width * (396/self.size.height);
+            height = 487;
+            width = self.size.width * (487/self.size.height);
         }
     }
 
