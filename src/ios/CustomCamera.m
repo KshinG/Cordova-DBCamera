@@ -34,19 +34,31 @@
         //[self.sceneText setText:@"Portrait"];
         lblFrame = CGRectMake(newX/2-portraitlabelWidth/2, newY-portraitlabelHeight, portraitlabelWidth, portraitlabelHeight);
 
+        self.flashButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(0) );
+        self.cameraButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(0) );
+        self.triggerButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(0) );
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(0) );
         self.sceneText.frame = lblFrame;
     } else if ( orientation == UIInterfaceOrientationLandscapeLeft){
         //[self.sceneText setText:@"Landscape Left"];
+        self.flashButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(-90) );
+        self.cameraButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(-90) );
+        self.triggerButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(-90) );
         lblFrame = CGRectMake(newX-landscapelabelHeight, newY/2-landscapelabelWidth*0.425, landscapelabelHeight, landscapelabelWidth);
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(-90) );
         self.sceneText.frame = lblFrame;
     }  else if (orientation == UIInterfaceOrientationLandscapeRight){
        // [self.sceneText setText:@"Landscape Right"];
+        self.flashButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90) );
+        self.cameraButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90) );
+        self.triggerButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90) );
         lblFrame = CGRectMake(0, newY/2-landscapelabelWidth*0.425, landscapelabelHeight, landscapelabelWidth);
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(90) );
         self.sceneText.frame = lblFrame;
     }else if (orientation == UIInterfaceOrientationPortraitUpsideDown){
+        self.flashButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(180) );
+        self.cameraButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(180) );
+        self.triggerButton.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(180) );
         lblFrame = CGRectMake(newX/2-portraitlabelWidth/2, 65, portraitlabelWidth, portraitlabelHeight);
        // [self.sceneText setText:@"Upside Down"];
         self.sceneText.transform=CGAffineTransformMakeRotation( DEGREES_TO_RADIANS(180) );
