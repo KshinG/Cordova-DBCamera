@@ -143,7 +143,7 @@
     if ( !_focusBox ) {
         _focusBox = [[CALayer alloc] init];
         [_focusBox setCornerRadius:45.0f];
-        [_focusBox setBounds:CGRectMake(0.0f, 0.0f, 90, 90)];
+        [_focusBox setBounds:CGRectMake(0.0f, 0.0f, 100, 100)];
         [_focusBox setBorderWidth:5.f];
         [_focusBox setBorderColor:[[UIColor whiteColor] CGColor]];
         [_focusBox setOpacity:0];
@@ -157,7 +157,7 @@
     if ( !_exposeBox ) {
         _exposeBox = [[CALayer alloc] init];
         [_exposeBox setCornerRadius:55.0f];
-        [_exposeBox setBounds:CGRectMake(0.0f, 0.0f, 110, 110)];
+        [_exposeBox setBounds:CGRectMake(0.0f, 0.0f, 100, 100)];
         [_exposeBox setBorderWidth:5.f];
         [_exposeBox setBorderColor:[[UIColor redColor] CGColor]];
         [_exposeBox setOpacity:0];
