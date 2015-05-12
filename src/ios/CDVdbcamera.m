@@ -170,13 +170,13 @@
         orient = @"portrait";
     }
 
-    if (MAX(image.size.width, image.size.height) > 398){
+    if (MAX(image.size.width, image.size.height) > 488){
         if ([orient  isEqual: @"landscape"]){
-            targetSize.width = 396;
-            targetSize.height = image.size.height * (396/image.size.width);
+            targetSize.width = 487;
+            targetSize.height = image.size.height * (487/image.size.width);
         } else {
-            targetSize.height = 396;
-            targetSize.width = image.size.width * (396/image.size.height);
+            targetSize.height = 487;
+            targetSize.width = image.size.width * (487/image.size.height);
         }
     }
 
