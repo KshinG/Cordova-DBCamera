@@ -72,6 +72,7 @@
 
     [nav setNavigationBarHidden:YES];
     [self.viewController presentViewController:nav animated:YES completion:^(){
+        [camera.delegate triggerFlashForMode:AVCaptureFlashModeAuto];
         if (cameraDirection == true){
           [camera.delegate switchCamera];
         }
@@ -179,6 +180,11 @@
             targetSize.width = image.size.width * (396/image.size.height);
         }
     }
+
+
+
+
+
 
     image = [image fixOrientation];
    // UIImage* scaledImage = nil;

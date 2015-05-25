@@ -1,3 +1,6 @@
+#define previewFrame (CGRect){ 0, 65, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - 138 }
+
+
 @implementation UIImage (fixOrientation)
 
 - (UIImage *)fixOrientation {
@@ -11,26 +14,65 @@
     NSString* orient;
     size_t width = 0;
     size_t height = 0;
+    CGRect cropRect;
 
-    if (self.size.width >= self.size.height){
+
+
+
+    switch (self.imageOrientation) {
+        case UIImageOrientationDown:
+        case UIImageOrientationDownMirrored:
+            //phone top left
+            cropRect = CGRectMake( 130, 0, self.size.width-280, self.size.height);
+            break;
+
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+            //phone top down
+            cropRect = CGRectMake( 130, 138, self.size.height-276, self.size.width-260);
+            break;
+
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            //phone top up
+            cropRect = CGRectMake( 138, 130, self.size.height-276, self.size.width-260);
+            break;
+        case UIImageOrientationUp:
+        case UIImageOrientationUpMirrored:
+            //phone top right
+            cropRect = CGRectMake( 138, 0, self.size.width-276, self.size.height);
+
+            break;
+    }
+
+
+    CGImageRef imageRef = CGImageCreateWithImageInRect(self.CGImage, cropRect);
+    UIImage *smallimg = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
+
+    CGImageRelease(imageRef);
+
+
+    UIImage *result = smallimg;
+
+    if (result.size.width >= result.size.height){
         orient = @"landscape";
     }
     else{
         orient = @"portrait";
     }
 
-    if (MAX(self.size.width, self.size.height) > 398){
+    if (MAX(result.size.width, result.size.height) > 398){
         if ([orient  isEqual: @"landscape"]){
             width = 396;
-            height = self.size.height * (396/self.size.width);
+            height = result.size.height * (396/result.size.width);
         } else {
             height = 396;
-            width = self.size.width * (396/self.size.height);
+            width = result.size.width * (396/result.size.height);
         }
     }
 
     CGAffineTransform transform = CGAffineTransformIdentity;
-    switch (self.imageOrientation) {
+    switch (result.imageOrientation) {
         case UIImageOrientationDown:
         case UIImageOrientationDownMirrored:
             transform = CGAffineTransformTranslate(transform, width, height);
@@ -53,7 +95,7 @@
             break;
     }
 
-    switch (self.imageOrientation) {
+    switch (result.imageOrientation) {
         case UIImageOrientationUpMirrored:
         case UIImageOrientationDownMirrored:
             transform = CGAffineTransformTranslate(transform, width, 0);
@@ -78,9 +120,9 @@
     // Now we draw the underlying CGImage into a new context, applying the transform
     // calculated above.
     CGContextRef ctx = CGBitmapContextCreate(NULL, width, height,
-                                             CGImageGetBitsPerComponent(self.CGImage), 0,
-                                             CGImageGetColorSpace(self.CGImage),
-                                             CGImageGetBitmapInfo(self.CGImage));
+                                             CGImageGetBitsPerComponent(result.CGImage), 0,
+                                             CGImageGetColorSpace(result.CGImage),
+                                             CGImageGetBitmapInfo(result.CGImage));
     CGContextConcatCTM(ctx, transform);
     switch (self.imageOrientation) {
         case UIImageOrientationLeft:
@@ -88,11 +130,11 @@
         case UIImageOrientationRight:
         case UIImageOrientationRightMirrored:
             // Grr...
-            CGContextDrawImage(ctx, CGRectMake(0,0,height,width), self.CGImage);
+            CGContextDrawImage(ctx, CGRectMake(0,0,height,width), result.CGImage);
             break;
 
         default:
-            CGContextDrawImage(ctx, CGRectMake(0,0,width,height), self.CGImage);
+            CGContextDrawImage(ctx, CGRectMake(0,0,width,height), result.CGImage);
             break;
     }
 
@@ -101,6 +143,10 @@
     UIImage *img = [UIImage imageWithCGImage:cgimg];
     CGContextRelease(ctx);
     CGImageRelease(cgimg);
+
+
+
+
     return img;
 }
 
