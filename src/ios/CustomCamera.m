@@ -11,9 +11,11 @@
 
 @interface CustomCamera () <DBCameraViewControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) CALayer *focusBox, *exposeBox;
-@property (nonatomic, strong) UIView *bottomContainerBar, *topContainerBar;@end
+@property (nonatomic, strong) UIView *bottomContainerBar, *topContainerBar;
+@end
 
 @implementation CustomCamera
+
 
 -(void) dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver: self];
@@ -77,6 +79,7 @@
 
     [self.previewLayer addSublayer:self.focusBox];
     [self.previewLayer addSublayer:self.exposeBox];
+    [self.flashButton setSelected:true];
 
     [self addSubview:self.topContainerBar];
     [self addSubview:self.bottomContainerBar];
@@ -87,6 +90,7 @@
 
     [self.bottomContainerBar addSubview:self.triggerButton];
     [self.bottomContainerBar addSubview:self.closeButton];
+
 
 
 
@@ -187,7 +191,6 @@
 {
     [super draw:_exposeBox atPointOfInterest:point andRemove:remove];
 }
-#pragma mark InterfaceOrientationMethods
 
 
 @end
