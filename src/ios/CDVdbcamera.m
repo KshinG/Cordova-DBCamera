@@ -72,7 +72,7 @@
 
     [nav setNavigationBarHidden:YES];
     [self.viewController presentViewController:nav animated:YES completion:^(){
-        float zoomLevel = 1.0f;
+        float zoomLevel = 0.8f;
 
                //Set the zoom factor for iOS 7.x compatible hardware
          NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
@@ -88,19 +88,19 @@
          }
 
         //Set video scale and crop factor of the AVFoundation connection
-        [camera.previewLayer.connection setVideoScaleAndCropFactor:zoomLevel];
+        //[camera.previewLayer.connection setVideoScaleAndCropFactor:zoomLevel];
 
         //set the preset of the AVFoundation capture session
-        camera.previewLayer.session.sessionPreset = AVCaptureSessionPresetPhoto;
+        //camera.previewLayer.session.sessionPreset = AVCaptureSessionPresetPhoto;
 
         //set the bounds of the preview frame
-       preview layer bounds are equal to (CGRect){ 0, 65, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - 138 }
-        CGRect frame = camera.previewLayer.frame;
-        float width = frame.size.width * zoomLevel;
-        float height = frame.size.height * zoomLevel;
-        float x = (frame.size.width - width)/2;
-        float y = (frame.size.height - height)/2;
-        camera.previewLayer.bounds = CGRectMake(x, y, width, height);  //everything before this
+      // preview layer bounds are equal to (CGRect){ 0, 65, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - 138 }
+        //CGRect frame = camera.previewLayer.frame;
+//        float width = frame.size.width * zoomLevel;
+//        float height = frame.size.height * zoomLevel;
+//        float x = (frame.size.width - width)/2;
+//        float y = (frame.size.height - height)/2;
+//        camera.previewLayer.bounds = CGRectMake(x, y, width, height);
         [camera.delegate triggerFlashForMode:AVCaptureFlashModeAuto];
         if (cameraDirection == true){
           [camera.delegate switchCamera];
