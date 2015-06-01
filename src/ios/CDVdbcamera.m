@@ -72,20 +72,20 @@
 
     [nav setNavigationBarHidden:YES];
     [self.viewController presentViewController:nav animated:YES completion:^(){
-        //float zoomLevel = 1.0f;
+        float zoomLevel = 0.8f;
 
                //Set the zoom factor for iOS 7.x compatible hardware
-        // NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-//        for (AVCaptureDevice *device in devices) {
-//            if ([device respondsToSelector:@selector(setVideoZoomFactor:)] && device.activeFormat.videoMaxZoomFactor >=zoomLevel) {
-//                if ([device lockForConfiguration:nil]) {
-//                    NSLog(@"Video zoom scale threshold %f", device.activeFormat.videoMaxZoomFactor);
-//                    [device setVideoZoomFactor:zoomLevel];
-//                    [device unlockForConfiguration];
-//                }
-//            }
-//
-//         }
+         NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+        for (AVCaptureDevice *device in devices) {
+            if ([device respondsToSelector:@selector(setVideoZoomFactor:)] && device.activeFormat.videoMaxZoomFactor >=zoomLevel) {
+                if ([device lockForConfiguration:nil]) {
+                    NSLog(@"Video zoom scale threshold %f", device.activeFormat.videoMaxZoomFactor);
+                    [device setVideoZoomFactor:zoomLevel];
+                    [device unlockForConfiguration];
+                }
+            }
+
+         }
 
         //Set video scale and crop factor of the AVFoundation connection
         //[camera.previewLayer.connection setVideoScaleAndCropFactor:zoomLevel];
