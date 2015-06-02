@@ -52,7 +52,7 @@
     CGImageRelease(imageRef);
 
 
-    UIImage *result = self; //smallimg;
+    UIImage *result = smallimg;
 
     if (result.size.width >= result.size.height){
         orient = @"landscape";
