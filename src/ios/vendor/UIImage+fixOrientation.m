@@ -19,32 +19,33 @@
 
 
 
-    switch (self.imageOrientation) {
-        case UIImageOrientationDown:
-        case UIImageOrientationDownMirrored:
+//    switch (self.imageOrientation) {
+//        case UIImageOrientationDown:
+//        case UIImageOrientationDownMirrored:
             //phone top left
-            cropRect = CGRectMake( 130, 0, self.size.width-280, self.size.height);
-            break;
+//            cropRect = CGRectMake( 130, 0, self.size.width-280, self.size.height);
+//            break;
 
-        case UIImageOrientationLeft:
-        case UIImageOrientationLeftMirrored:
+//        case UIImageOrientationLeft:
+//        case UIImageOrientationLeftMirrored:
             //phone top down
-            cropRect = CGRectMake( 130, 138, self.size.height-276, self.size.width-260);
-            break;
+//            cropRect = CGRectMake( 130, 138, self.size.height-276, self.size.width-260);
+//            break;
 
-        case UIImageOrientationRight:
-        case UIImageOrientationRightMirrored:
+//        case UIImageOrientationRight:
+//        case UIImageOrientationRightMirrored:
             //phone top up
-            cropRect = CGRectMake( 138, 130, self.size.height-276, self.size.width-260);
-            break;
-        case UIImageOrientationUp:
-        case UIImageOrientationUpMirrored:
+//            cropRect = CGRectMake( 138, 130, self.size.height-276, self.size.width-260);
+//            break;
+//        case UIImageOrientationUp:
+//        case UIImageOrientationUpMirrored:
             //phone top right
-            cropRect = CGRectMake( 138, 0, self.size.width-276, self.size.height);
+//            cropRect = CGRectMake( 138, 0, self.size.width-276, self.size.height);
 
-            break;
-    }
+//            break;
+//    }
 
+cropRect = CGRectMake( self.frame.origin.x, self.frame.origin.y, self.size.width-(0.20*self.size.width), self.size.height-(0.20*self.size.height));
 
     CGImageRef imageRef = CGImageCreateWithImageInRect(self.CGImage, cropRect);
     UIImage *smallimg = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
