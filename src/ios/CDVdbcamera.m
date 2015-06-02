@@ -72,7 +72,7 @@
 
     [nav setNavigationBarHidden:YES];
     [self.viewController presentViewController:nav animated:YES completion:^(){
-        float zoomLevel = 1.0f;
+        //float zoomLevel = 1.0f;
 
                //Set the zoom factor for iOS 7.x compatible hardware
         // NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
@@ -88,7 +88,7 @@
 //         }
 
         //Set video scale and crop factor of the AVFoundation connection
-        [camera.previewLayer.connection setVideoScaleAndCropFactor:zoomLevel];
+        //[camera.previewLayer.connection setVideoScaleAndCropFactor:zoomLevel];
 
         //set the preset of the AVFoundation capture session
         //camera.previewLayer.session.sessionPreset = AVCaptureSessionPresetPhoto;
