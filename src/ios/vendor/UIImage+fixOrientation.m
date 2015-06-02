@@ -45,7 +45,7 @@
 //            break;
 //    }
 
-cropRect = CGRectMake( 0, 0, 0.8*self.size.width, 0.8*self.size.height);
+cropRect = CGRectMake( 160, 160, self.size.width-(0.20*self.size.width), self.size.height-(0.20*self.size.height));
 
     CGImageRef imageRef = CGImageCreateWithImageInRect(self.CGImage, cropRect);
     UIImage *smallimg = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
