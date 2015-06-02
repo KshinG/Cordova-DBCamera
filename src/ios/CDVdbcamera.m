@@ -72,7 +72,7 @@
 
     [nav setNavigationBarHidden:YES];
     [self.viewController presentViewController:nav animated:YES completion:^(){
-        float zoomLevel = 1.2f;
+        float zoomLevel = 1.0f;
 
                //Set the zoom factor for iOS 7.x compatible hardware
         // NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
