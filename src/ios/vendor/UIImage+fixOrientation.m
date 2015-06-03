@@ -40,7 +40,7 @@
         case UIImageOrientationUp:
         case UIImageOrientationUpMirrored:
             //phone top right back landscape
-            cropRect = CGRectMake( self.size.width*0.07, 10, self.size.width*0.78, self.size.height*0.78);
+            cropRect = CGRectMake( self.size.width*0.01, 10, self.size.width*0.78, self.size.height*0.78);
 
             break;
     }
