@@ -23,7 +23,7 @@
         case UIImageOrientationDown:
         case UIImageOrientationDownMirrored:
             //phone top left selfie portrait
-            cropRect = CGRectMake( 138, 0, self.size.width*0.8, 0.8*self.size.height);
+            cropRect = CGRectMake( 138, 0, self.size.width*0.2, 0.2*self.size.height);
             break;
 
         case UIImageOrientationLeft:
