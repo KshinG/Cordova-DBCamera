@@ -23,24 +23,24 @@
         case UIImageOrientationDown:
         case UIImageOrientationDownMirrored:
             //phone top left selfie landscape
-            cropRect = CGRectMake( self.size.width*0.39, self.size.height*0.39, self.size.width*0.78, 0.78*self.size.height);
+            cropRect = CGRectMake( self.size.width*0.19, self.size.height*0.19, self.size.width*0.78, 0.78*self.size.height);
             break;
 
         case UIImageOrientationLeft:
         case UIImageOrientationLeftMirrored:
             //phone top down selfie portrait
-            cropRect = CGRectMake( self.size.height*0.39, self.size.width*0.39, self.size.height*0.78, self.size.width*0.78);
+            cropRect = CGRectMake( self.size.height*0.19, self.size.width*0.19, self.size.height*0.78, self.size.width*0.78);
             break;
 
         case UIImageOrientationRight:
         case UIImageOrientationRightMirrored:
             //phone top up  back portrait
-            cropRect = CGRectMake( self.size.height*0.39, self.size.width*0.39, self.size.height*0.78, self.size.width*0.78);
+            cropRect = CGRectMake( self.size.height*0.19, self.size.width*0.19, self.size.height*0.78, self.size.width*0.78);
             break;
         case UIImageOrientationUp:
         case UIImageOrientationUpMirrored:
             //phone top right back landscape
-            cropRect = CGRectMake( self.size.width*0.39, self.size.height*0.39, self.size.width*0.78, self.size.height*0.78);
+            cropRect = CGRectMake( self.size.width*0.19, self.size.height*0.19, self.size.width*0.78, self.size.height*0.78);
 
             break;
     }
