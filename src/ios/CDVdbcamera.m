@@ -6,6 +6,7 @@
 #import "DBCameraView.h"
 #import "UIImage+CropScaleOrientation.h"
 #import "UIImage+fixOrientation.m"
+#import "objc/message.h"
 
 // Uncomment custom camera related to start implementing your own
 #import "CustomCamera.h"
